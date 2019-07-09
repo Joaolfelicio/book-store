@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 09, 2019 at 08:05 PM
+-- Generation Time: Jul 09, 2019 at 11:26 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -99,10 +99,17 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `paid`, `user_id`, `date`, `order_price`) VALUES
-(1, 0, 2, '2019-07-09', 111),
-(2, 0, 2, '2019-07-09', 0),
-(3, 0, 1, '2019-07-09', 0),
-(4, 0, 1, '2019-07-09', 0);
+(21, 1, 3, '2019-07-09', 27),
+(22, 1, 3, '2019-07-09', 598),
+(23, 1, 3, '2019-07-09', 54),
+(24, 1, 11, '2019-07-09', 42),
+(25, 1, 11, '2019-07-09', 58),
+(26, 1, 3, '2019-07-09', 12),
+(27, 1, 3, '2019-07-09', 54),
+(28, 1, 3, '2019-07-09', 54),
+(29, 1, 3, '2019-07-09', 14),
+(30, 1, 3, '2019-07-09', 42),
+(31, 1, 3, '2019-07-09', 42);
 
 -- --------------------------------------------------------
 
@@ -111,6 +118,7 @@ INSERT INTO `orders` (`order_id`, `paid`, `user_id`, `date`, `order_price`) VALU
 --
 
 CREATE TABLE `order_content` (
+  `order_content_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -119,13 +127,18 @@ CREATE TABLE `order_content` (
 -- Dumping data for table `order_content`
 --
 
-INSERT INTO `order_content` (`item_id`, `order_id`) VALUES
-(1, 1),
-(3, 1),
-(5, 1),
-(6, 3),
-(7, 2),
-(7, 3);
+INSERT INTO `order_content` (`order_content_id`, `item_id`, `order_id`) VALUES
+(11, 2, 21),
+(12, 8, 22),
+(13, 4, 23),
+(14, 5, 24),
+(15, 7, 25),
+(16, 1, 26),
+(17, 4, 27),
+(18, 4, 28),
+(19, 6, 29),
+(20, 5, 30),
+(21, 5, 31);
 
 -- --------------------------------------------------------
 
@@ -154,7 +167,8 @@ INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`) 
 (6, 'joking', 'lobeu', 'joaolfelicio@gmail.com', '$2y$10$R.saA7tyfhTGC9hpyaNSAuwpASCCKetQ.1eYAfZTiXnhtQ6Z0xJ1O'),
 (7, 'asda', 'dasdasd22', 'asdasda@dasdasdas.com', '$2y$10$XQxVpAUupdBEUv7H6TW/POaRFAc0HHSHbtWlFk5Z2MIA9kEGIcpLq'),
 (8, 'asda', 'dasdasd22', 'asdasda@dasdasdas.com', '$2y$10$XQxVpAUupdBEUv7H6TW/POaRFAc0HHSHbtWlFk5Z2MIA9kEGIcpLq'),
-(9, 'what', 'fuck', 'weirdbug@bug.com', '$2y$10$H/ynBCMfQ7XRxe6nnt9ureVE4njlHT.Hvh9FaoLf0.ZQ0Wz2HNuNi');
+(9, 'what', 'fuck', 'weirdbug@bug.com', '$2y$10$H/ynBCMfQ7XRxe6nnt9ureVE4njlHT.Hvh9FaoLf0.ZQ0Wz2HNuNi'),
+(11, 'asdasd', 'asdasd', 'asd@asd.com', '$2y$10$sy2vYqk9lm3bzlRHgl25SOcp2IFMqgwNVpcxMvMSGNqq/GSHjBWBK');
 
 --
 -- Indexes for dumped tables
@@ -184,6 +198,7 @@ ALTER TABLE `orders`
 -- Indexes for table `order_content`
 --
 ALTER TABLE `order_content`
+  ADD PRIMARY KEY (`order_content_id`),
   ADD KEY `item_id` (`item_id`),
   ADD KEY `order_id` (`order_id`);
 
@@ -213,13 +228,19 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `order_content`
+--
+ALTER TABLE `order_content`
+  MODIFY `order_content_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
