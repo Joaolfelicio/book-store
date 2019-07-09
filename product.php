@@ -39,7 +39,7 @@ if(isset($_GET['itemId'])) {
             echo "<article>";
             echo "<div>";
             ?>
-            <a href='product.php?itemId= <?php echo $row['item_id'] ?>' > <h3><?php echo $row['title'] ?><h3> </a>
+            <h3><?php echo $row['title'] ?><h3>
             <?php
             echo "<p> " . $row['name'] . "<p>";
             echo "<p> Release date: " . $row['release_date'];

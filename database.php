@@ -1,5 +1,6 @@
 <?php
-define('DB_USER', 'root');
-define('DB_PASSWORD', '');
-define('DB_SERVER', 'localhost');
-define('DB_NAME','projectDay');
+
+DEFINE('DB_SERVER', 'localhost');
+DEFINE('DB_USER', 'root');
+DEFINE('DB_PASSWORD', '');
+DEFINE('DB_NAME', 'projectDay');
