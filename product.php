@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +50,9 @@ if(isset($_GET['itemId'])) {
             echo "<p> Release date: " . $row['release_date'];
             echo "<p> Price: " . $row['price'] . '$';
             echo "<p>" . $row['soldNum'] . " copies sold!";
-            echo "<a href='#'><h5>Add to cart</h5></a>";
+            if(!empty($_SESSION['userId'])) {
+                echo "<a href='#'><h5>Add to cart</h5></a>";
+            }
             echo "<h3 style='margin-top: 75px'>Author: </h3>";
             echo "<p> " . $row['name'] . "<p>";
             echo "<p> Birth date: " . $row['year_birth'];

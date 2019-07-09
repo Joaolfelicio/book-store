@@ -22,13 +22,12 @@
     echo DB_NAME . ' found!' . '<br>';
     echo '<hr>';
 
-    // ! SELECT WITH THIS USER ID AND ONLY THAT ONES THAT ARE NOT PAID
-    // ! IN THE ORDER PAGE IT WILL BE THE SAME BUT FOR PAID = 0
+    // ! SELECT WITH THIS USER ID AND ONLY THAT ONES THAT ARE PAID
 
     $query = "SELECT * FROM order_content oc
     INNER JOIN items i on oc.item_id = i.item_id
     INNER JOIN orders o on oc.order_id = o.order_id
-    WHERE o.order_id = '$order_id' AND o.paid = 0";
+    WHERE o.order_id = '$order_id' AND o.paid = 1";
     
     $result = mysqli_query($conn, $query);
     $totalPrice = 0;

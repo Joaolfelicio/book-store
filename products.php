@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +70,9 @@ if(!isset($_GET['filter'])) {
         echo "<p> Release date: " . $row['release_date'];
         echo "</div>";
         echo "<div class='order'>";
-        echo "<a href='#'><h5>Add to cart</h5></a>";
+        if(!empty($_SESSION['userId'])) {
+            echo "<a href='#'><h5>Add to cart</h5></a>";
+        }
         echo "</div>";
         echo "</article>";
     }
@@ -94,7 +97,10 @@ if(isset($_GET['filter'])) {
         echo "<p> Release date: " . $row['release_date'];
         echo "</div>";
         echo "<div class='order'>";
-        echo "<a href='#'><h5>Add to cart</h5></a>";
+        
+        if(!empty($_SESSION['userId'])) {
+            echo "<a href='#'><h5>Add to cart</h5></a>";
+        }
         echo "</div>";
         echo "</article>";
     }
