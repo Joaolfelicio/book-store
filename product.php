@@ -44,9 +44,7 @@ if(isset($_GET['itemId'])) {
             echo "<article>";
             echo "<div>";
             echo "<h3 style='margin-top: 75px'>Item: </h3>";
-            ?>
-            <a href='product.php?itemId= <?php echo $row['item_id'] ?>' > <h3><?php echo $row['title'] ?></h3> </a>
-            <?php
+            echo "<h3>" . $row['title'] . "</h3>";
             echo "<p> Release date: " . $row['release_date'];
             echo "<p> Price: " . $row['price'] . '$';
             echo "<p>" . $row['soldNum'] . " copies sold!";

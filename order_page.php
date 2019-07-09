@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,18 +10,18 @@
 </head>
 
 <body>
-    <h1>Cart details</h1>
     <?php
-    // to work with database , we will use a function call :mysqli
+    if(isset($_SESSION['userId'])) {
+
+    echo "<h1>Cart details</h1>";
+
     require_once 'database.php';
     $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
-    echo 'connection successfull <br>';
-    //  choose which database that i want to work with
-    $order_id = 1;
+    
+    $order_id = 1; // me
 
     $db_found = mysqli_select_db($conn, DB_NAME);
-    echo DB_NAME . ' found!' . '<br>';
-    echo '<hr>';
+
 
     // ! SELECT WITH THIS USER ID AND ONLY THAT ONES THAT ARE PAID
 
@@ -36,7 +37,23 @@
         echo '$'. $row['price'] . '<br>';
         $totalPrice += $row['price'];
     }
-    echo 'The Total is $' . $totalPrice;
+
+    echo '<p><strong>The Total is $' . $totalPrice . "</strong></p>";
+
+    ?>
+
+    
+<form action="account.php" method="POST">
+    <input type="text" name='adress' placeholder="Enter the adress for the delivery">
+    <select name="payment" id="">
+        <option value="mastercard">MasterCard</option>
+        <option value="visa">Visa</option>
+        <option value="paypal">Paypal</option>
+    </select>
+</form>
+
+
+<?php
 
 
 
@@ -45,3 +62,6 @@
 </body>
 
 </html>
+<?php
+}
+?>
