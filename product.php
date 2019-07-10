@@ -134,4 +134,7 @@ if(isset($_GET['buyId'])) {
 
     $queryOrder = "INSERT INTO order_content(item_id, order_id) VALUES('$buyId', '$orderId')";
     $resultOrder = mysqli_query($connection, $queryOrder);
+    header("Location: products.php");
+
+
 }

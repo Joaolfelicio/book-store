@@ -57,6 +57,7 @@
                 } else {
                     echo "<p style='color: red'><strong>Connection to the server failed.</strong></p>";
                 }
+                
 
             } else {
                 echo "<p style='color: red'> Please fill the required fields</p>";

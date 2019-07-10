@@ -24,7 +24,7 @@
             align-items: center;
         }
 
-        img {
+        .image {
             width: 50px;
             height: 50px;
         }
@@ -83,98 +83,42 @@ if(isset($_SESSION['userId'])) {
     $userId = $_SESSION['userId'];
 }
 
+    // ! FILTER THE BOOKS
 
-// ! RETRIEVE ALL THE BOOKS
-if(!isset($_GET['filter'])) {
-    while($row = mysqli_fetch_assoc($result)) {
-        echo "<article>";
-        echo "<div class='poster'>";
+$category = isset($_GET['filterDrop']) ? $_GET['filterDrop'] : "";
+
+$queryCategory = "SELECT * FROM items i INNER JOIN author a ON i.author_id = a.author_id WHERE category LIKE '%$category%' AND i.isAvailable = 1";
+$resultCategory = mysqli_query($connection, $queryCategory);
+
+while($row = mysqli_fetch_assoc($resultCategory)) {
+    echo "<article>";
+    echo "<div class='poster'>";
+    ?>
+    <a href='product.php?itemId=<?php echo $row['item_id'] ?>' > <img class='poster' src="<?php echo $row['poster'] ?>" alt="poster for the book"> </a>
+    <?php
+    echo "</div>";
+    echo "<div class='content'>";
+    ?>
+    <a href='product.php?itemId=<?php echo $row['item_id']?>' > <h3><?php echo $row['title'] ?><h3> </a>
+    <?php
+    echo "<p> " . $row['name'] . "<p>";
+    echo "<p> Release date: " . $row['release_date'];
+    echo "<p> Price: $" . $row['price'];
+    echo "</div>";
+    echo "<div class='order'>";
+    if(!empty($_SESSION['userId'])) {
+
         ?>
-        <a href='product.php?itemId=<?php echo $row['item_id'] ?>' > <img class='poster' src="<?php echo $row['poster'] ?>" alt="poster for the book"> </a>
+        <form action="buy.php" method='POST'>
+
+            <input type="hidden" value='<?php echo $row['item_id'] ?>' name="itemId">
+            <!-- <input class='image' type="image" name='submitBuy' src="http://cdn.onlinewebfonts.com/svg/img_569392.png" alt=""> -->
+            <input type="submit" value="CART" name='submitBuy'>
+        </form>
+
         <?php
-        echo "</div>";
-        echo "<div class='content'>";
-        ?>
-        <a href='product.php?itemId=<?php echo $row['item_id']?>' > <h3><?php echo $row['title'] ?><h3> </a>
-        <?php
-        echo "<p> " . $row['name'] . "<p>";
-        echo "<p> Release date: " . $row['release_date'];
-        echo "<p> Price: $" . $row['price'];
-        echo "</div>";
-        echo "<div class='order'>";
-        if(!empty($_SESSION['userId'])) {
-            ?>
-            <a href='?itemId=<?php echo $row['item_id']?>'><img src='http://cdn.onlinewebfonts.com/svg/img_569392.png' alt='basket.'></a>"
-            <?php
-        }
-        echo "</div>";
-        echo "</article>";
     }
-
-}
-
-// ! FILTER THE BOOKS
-if(isset($_GET['filter'])) {
-
-    $category = $_GET['filterDrop'];
-
-    $queryCategory = "SELECT * FROM items i INNER JOIN author a ON i.author_id = a.author_id WHERE category LIKE '%$category%' AND i.isAvailable = 1";
-    $resultCategory = mysqli_query($connection, $queryCategory);
-
-    while($row = mysqli_fetch_assoc($resultCategory)) {
-        echo "<article>";
-        echo "<div class='poster'>";
-        ?>
-        <a href='product.php?itemId=<?php echo $row['item_id'] ?>' > <img class='poster' src="<?php echo $row['poster'] ?>" alt="poster for the book"> </a>
-        <?php
-        echo "</div>";
-        echo "<div class='content'>";
-        ?>
-        <a href='product.php?itemId=<?php echo $row['item_id']?>' > <h3><?php echo $row['title'] ?><h3> </a>
-        <?php
-        echo "<p> " . $row['name'] . "<p>";
-        echo "<p> Release date: " . $row['release_date'];
-        echo "<p> Price: $" . $row['price'];
-        echo "</div>";
-        echo "<div class='order'>";
-        if(!empty($_SESSION['userId'])) {
-            ?>
-            <a href='?itemId=<?php echo $row['item_id']?>'><img src='http://cdn.onlinewebfonts.com/svg/img_569392.png' alt='basket.'></a>"
-            <?php
-        }
-        echo "</div>";
-        echo "</article>";
-    }
-}
-
-
-// ! ADD ITEM TO PRE-ORDER PAGE
-if(isset($_GET['itemId'])) {
-    $itemId = $_GET['itemId'];
- 
-    //? INSERT ORDER INTO ORDERS
-    $query2 = "SELECT * FROM orders WHERE user_id = '$userId' AND paid = 0";
-    $result2 = mysqli_query($connection, $query2);
-    $fetch2 = mysqli_fetch_array($result2);
-
-    var_dump($fetch2);
-    
-    if(empty($fetch2)) {
-        $queryPreOrder = "INSERT INTO orders(user_id) VALUES('$userId')";
-        $resultPreOrder = mysqli_query($connection, $queryPreOrder);
-    }
-    
-    //? ADD CONTENT OF THE CART
-    $query3 = "SELECT * FROM orders WHERE user_id = '$userId' AND paid = 0";
-    $result3 = mysqli_query($connection, $query3);
-
-    $fetch3 = mysqli_fetch_assoc($result3);
-
-    var_dump($fetch3);
-    $orderId = $fetch3['order_id'];
-
-    $queryOrder = "INSERT INTO order_content(item_id, order_id) VALUES('$itemId', '$orderId')";
-    $resultOrder = mysqli_query($connection, $queryOrder);
-
+    echo "</div>";
+    echo "</article>";
 }
 ?>
