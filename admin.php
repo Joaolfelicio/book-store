@@ -1,4 +1,4 @@
-<?php session_start() ?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,27 +8,26 @@
     <title>Document</title>
 
     <style>
-        article {
-            padding: 15px;
-            display: flex;
-            margin-top: 35px;
-            display: flex;
-            justify-content: space-evenly;
 
-        }
-
-        .order {
-            width: 300px;
+        .options {
+            width: 200px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            margin-left: 50px;
         }
 
         img {
             width: 50px;
             height: 50px;
         }
-
+        article {
+            padding: 15px;
+            display: flex;
+            margin-top: 35px;
+            justify-content: space-evenly;
+        }
         .poster {
             height: 300px;
             width: 200px;
@@ -40,14 +39,17 @@
             align-items: flex-start;
             flex-direction: column;
             margin-left: 50px;
+            width: 200px;
         }
     </style>
 </head>
 
 
 <body>
-    
-    <h1 style='text-align: center'>BOOKS: </h1>
+    <?php
+if(isset($_SESSION['userId']) && $_SESSION['isAdmin'] == 1) {
+    ?>
+    <h1 style='text-align: center'>ADMIN</h1>
     
     <form action="" method='GET'>
         
@@ -65,23 +67,28 @@
 
     </form>
 
+    <br>
+    <a href='add.php'>Add a new Item</a>
+
 </body>
 </html>
+
 <?php
 
 
-include_once ('database.php');
 
-$connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD);
+        include_once ('database.php');
 
-$db_found = mysqli_select_db($connection, DB_NAME);
+        $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD);
+        
+        $db_found = mysqli_select_db($connection, DB_NAME);
+        
+        $query = 'SELECT * FROM items i INNER JOIN author a ON i.author_id = a.author_id WHERE i.isAvailable = 1';
+        $result = mysqli_query($connection, $query);
 
-$query = 'SELECT * FROM items i INNER JOIN author a ON i.author_id = a.author_id WHERE i.isAvailable = 1';
-$result = mysqli_query($connection, $query);
-
-if(isset($_SESSION['userId'])) {
-    $userId = $_SESSION['userId'];
-}
+    if(isset($_SESSION['userId'])) {
+        $userId = $_SESSION['userId'];
+    }
 
 
 // ! RETRIEVE ALL THE BOOKS
@@ -101,10 +108,12 @@ if(!isset($_GET['filter'])) {
         echo "<p> Release date: " . $row['release_date'];
         echo "<p> Price: $" . $row['price'];
         echo "</div>";
-        echo "<div class='order'>";
+        echo "<div class='options'>";
         if(!empty($_SESSION['userId'])) {
             ?>
-            <a href='?itemId=<?php echo $row['item_id']?>'><img src='http://cdn.onlinewebfonts.com/svg/img_569392.png' alt='basket.'></a>"
+            <p><a href='edit.php?editId=<?php echo $row['item_id']?>'>Edit</a></p>
+            
+            <p><a href='delete.php?deleteId=<?php echo $row['item_id']?>'>Delete</a></p>
             <?php
         }
         echo "</div>";
@@ -136,10 +145,13 @@ if(isset($_GET['filter'])) {
         echo "<p> Release date: " . $row['release_date'];
         echo "<p> Price: $" . $row['price'];
         echo "</div>";
-        echo "<div class='order'>";
+        echo "<div class='options'>";
+        
         if(!empty($_SESSION['userId'])) {
             ?>
-            <a href='?itemId=<?php echo $row['item_id']?>'><img src='http://cdn.onlinewebfonts.com/svg/img_569392.png' alt='basket.'></a>"
+            <p><a href='edit.php?editId=<?php echo $row['item_id']?>'>Edit</a></p>
+            
+            <p><a href='delete.php?deleteId=<?php echo $row['item_id']?>'>Delete</a></p>
             <?php
         }
         echo "</div>";
@@ -148,33 +160,5 @@ if(isset($_GET['filter'])) {
 }
 
 
-// ! ADD ITEM TO PRE-ORDER PAGE
-if(isset($_GET['itemId'])) {
-    $itemId = $_GET['itemId'];
- 
-    //? INSERT ORDER INTO ORDERS
-    $query2 = "SELECT * FROM orders WHERE user_id = '$userId' AND paid = 0";
-    $result2 = mysqli_query($connection, $query2);
-    $fetch2 = mysqli_fetch_array($result2);
-
-    var_dump($fetch2);
-    
-    if(empty($fetch2)) {
-        $queryPreOrder = "INSERT INTO orders(user_id) VALUES('$userId')";
-        $resultPreOrder = mysqli_query($connection, $queryPreOrder);
-    }
-    
-    //? ADD CONTENT OF THE CART
-    $query3 = "SELECT * FROM orders WHERE user_id = '$userId' AND paid = 0";
-    $result3 = mysqli_query($connection, $query3);
-
-    $fetch3 = mysqli_fetch_assoc($result3);
-
-    var_dump($fetch3);
-    $orderId = $fetch3['order_id'];
-
-    $queryOrder = "INSERT INTO order_content(item_id, order_id) VALUES('$itemId', '$orderId')";
-    $resultOrder = mysqli_query($connection, $queryOrder);
 
 }
-?>

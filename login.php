@@ -76,6 +76,9 @@ if(isset($_POST['login'])) {
         while($row = mysqli_fetch_assoc($result)) {
             if(password_verify($password, $row['password']) && $email === $row['email']) {
                 $_SESSION['userId'] = $row['user_id'];
+
+                $_SESSION['isAdmin'] = $row['isAdmin'];
+
                 echo "<p>Sucessfully connected</p>";
                 header('Location: index.php');
             } else {

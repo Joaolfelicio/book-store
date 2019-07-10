@@ -7,10 +7,25 @@
     <title>Document</title>
     
     <style>
-    article, h1, h3, .presentation{
-        padding: 15px;
+
+
+    .content {
+        margin-left: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    article {
+        display: flex;
+        margin: 25px;
     }
 
+    img {
+        width: 150px;
+        height: 250px;
+        margin-left: 50px;
+    }
     </style>
 </head>
 <body>
@@ -21,7 +36,6 @@
 <p class='presentation'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error magnam eveniet iure expedita, fugiat similique eos ad, quos numquam excepturi dolores nihil asperiores? Maxime dignissimos possimus molestias quaerat quia vero?
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed non aperiam numquam quibusdam laboriosam possimus architecto amet quaerat veritatis in saepe nulla asperiores accusamus ipsum voluptate expedita, enim a aut.</p>
 
-<hr>
 <h3>Most sold:</h3>
 <?php
     require_once 'database.php';
@@ -34,14 +48,21 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed non aperiam numquam
 
     while ($db_record = mysqli_fetch_assoc($result)) { 
         echo '<article>';
+        echo "<div>";
         ?>
-        <p><strong>TITLE :</strong> <a href='product.php?itemId=<?php echo $db_record['item_id'] ?>'><?php echo $db_record['title'] ?></p></a>
+
+        <img src="<?php echo $db_record['poster'] ?>" alt="">
+        <?php
+        echo "</div>";
+        echo "<div class='content'>";
+        ?>
+        <p><strong>Title:</strong> <a href='product.php?itemId=<?php echo $db_record['item_id'] ?>'><?php echo $db_record['title'] ?></p></a>
         
         <?php
-        echo 'RELEASE DATE : ' . $db_record['release_date'] . '<br>';
-        echo 'SELLERS NUM : <strong>' . $db_record['soldNum'] . '</strong><br>';
+        echo '<p>Release date: ' . $db_record['release_date'] . '</p>';
+        echo '<p>Copies sold: <strong>' . $db_record['soldNum'] . '</strong></p>';
+        echo "</div>";
         echo '</article>';
-        echo '<hr>';
 
     }
 

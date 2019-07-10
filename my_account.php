@@ -52,27 +52,29 @@ if (!empty($_SESSION['userId'])) {
    
    $result = mysqli_query($conn, $query);
    $num = 0;
+   
    while($row = mysqli_fetch_assoc($result)) {
 
     echo "<article>";
     if($num !== $row['order_id']) {
-        $sum = 0;
-        echo "<hr>";
-
-
-        
-        echo "<p>Order id: " . $row['order_id'] . "</p>";
+        $total =  $row['price'];
+        echo "<hr>";        
+        echo "<h1>Order id: " . $row['order_id'] . "</h1>";
         $num = $row['order_id'];
         echo "<p> Date of order: " . $row['date'];
+    } else {
+        $total += $row['price'];
+         
     }
-    echo "<div>";
-    echo "<h3>" . $row['title'] . "<h3> </a>";
+    echo "<div>"; ?>
+    <h4><a href='product.php?itemId=<?php echo $row["item_id"]?>' > <?php echo $row['title'] ?></a></h4>   
+    <?php
     echo "<p> Price: $" . $row['price'];
     echo "</div>";
     echo "</article>";
+}
 
-   }
-   echo "<hr>";
+
 
 }else{
    header('Location: login.php ') ;

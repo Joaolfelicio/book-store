@@ -21,7 +21,7 @@
     
     $db_found = mysqli_select_db($conn, DB_NAME);
     echo DB_NAME . ' found!' . '<br>';
-    $query = 'SELECT title, release_date,soldNum FROM items ORDER BY soldNum DESC  limit 3  ';
+    $query = 'SELECT title, release_date,soldNum FROM items ORDER BY soldNum DESC limit 3  ';
     $result = mysqli_query($conn, $query);
     $contactEmail = '';
     $contactTextArea = '';

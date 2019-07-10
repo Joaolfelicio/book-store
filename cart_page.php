@@ -35,8 +35,7 @@
         $result = mysqli_query($conn, $query);
         $totalPrice = 0;
         while ($row = mysqli_fetch_assoc($result)) {
-            echo $row['title'] . ": ";
-            echo '$'. $row['price'] . '<br>';
+            echo "<p>" . $row['title'] . ": $" . $row['price'] . '<br>';
             $totalPrice += $row['price'];
         }
         if($totalPrice != 0) {
