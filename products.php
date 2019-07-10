@@ -125,26 +125,37 @@ if(isset($_GET['filter'])) {
 // ! ADD ITEM TO PRE-ORDER PAGE
 if(isset($_GET['itemId'])) {
     $itemId = $_GET['itemId'];
-
-    $queryItem = "SELECT * FROM items WHERE item_id = '$itemId'";
-    $resultItem = mysqli_query($connection, $queryItem);
-
-    $item = mysqli_fetch_assoc($resultItem);
-    $itemPrice = $item['price'];
-
-    
+ 
     //? INSERT ORDER INTO ORDERS
-    $queryPreOrder = "INSERT INTO orders(user_id, order_price) VALUES('$userId', '$itemPrice')";
-    $resultPreOrder = mysqli_query($connection, $queryPreOrder);
+    $query2 = "SELECT * FROM orders WHERE user_id = '$userId' AND paid = 0";
+    $result2 = mysqli_query($connection, $query2);
+    $fetch2 = mysqli_fetch_array($result2);
 
-    //? GET ORDER ID OF RECENTLY UPDATED ORDER
-    $queryGetOrder = "SELECT * FROM orders WHERE user_id = '$userId' AND order_price = '$itemPrice' ORDER BY order_id DESC LIMIT 1";
-    $resultGetOrder = mysqli_query($connection, $queryGetOrder);
-    $resultGetOrderFetch = mysqli_fetch_assoc($resultGetOrder);
-    $orderId = $resultGetOrderFetch['order_id'];
+    var_dump($fetch2);
+    
+    if(empty($fetch2)) {
+        $queryPreOrder = "INSERT INTO orders(user_id) VALUES('$userId')";
+        $resultPreOrder = mysqli_query($connection, $queryPreOrder);
+    }
+    
+    //? ADD CONTENT OF THE CART
+    $query3 = "SELECT * FROM orders WHERE user_id = '$userId' AND paid = 0";
+    $result3 = mysqli_query($connection, $query3);
 
-    //? ADD ORDER TO ORDER CONTENT
+    $fetch3 = mysqli_fetch_assoc($result3);
+
+    var_dump($fetch3);
+    $orderId = $fetch3['order_id'];
+
     $queryOrder = "INSERT INTO order_content(item_id, order_id) VALUES('$itemId', '$orderId')";
     $resultOrder = mysqli_query($connection, $queryOrder);
+    
+
+    // //? GET ORDER ID OF RECENTLY UPDATED ORDER
+    // $queryGetOrder = "SELECT * FROM orders WHERE user_id = '$userId' AND paid = 0 ORDER BY order_id LIMIT 1";
+    // $resultGetOrder = mysqli_query($connection, $queryGetOrder);
+    // $resultGetOrderFetch = mysqli_fetch_assoc($resultGetOrder);
+    // $orderId = $resultGetOrderFetch['order_id'];
+
 }
 ?>
