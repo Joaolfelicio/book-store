@@ -11,64 +11,60 @@
 
 <body>
 
+<?php
+    if(isset($_SESSION['userId'])) {
+        $userId = $_SESSION['userId'];
+        $payed = false;
+        echo "<h1>Cart details</h1>";
 
-    <?php
-if(isset($_SESSION['userId'])) {
-    $userId = $_SESSION['userId'];
-    $payed = false;
-    echo "<h1>Cart details</h1>";
+        require_once 'database.php';
+        $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
+        $user_id = $_SESSION['userId'];
 
-    require_once 'database.php';
-    $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
-    $user_id = $_SESSION['userId'];
-
-    $db_found = mysqli_select_db($conn, DB_NAME);
+        $db_found = mysqli_select_db($conn, DB_NAME);
 
 
-    // ! SELECT WITH THIS USER ID AND ONLY THAT ONES THAT ARE NOT PAID
-    // ! IN THE ORDER PAGE IT WILL BE THE SAME BUT FOR PAID = 1
+        // ! SELECT WITH THIS USER ID AND ONLY THAT ONES THAT ARE NOT PAID
+        // ! IN THE ORDER PAGE IT WILL BE THE SAME BUT FOR PAID = 1
 
-    $query = "SELECT * FROM order_content oc
-    INNER JOIN items i on oc.item_id = i.item_id
-    INNER JOIN orders o on oc.order_id = o.order_id
-    WHERE o.user_id = '$user_id' AND o.paid = 0";
-    
-    $result = mysqli_query($conn, $query);
-    $totalPrice = 0;
-    while ($row = mysqli_fetch_assoc($result)) {
-        echo $row['title'] . ": ";
-        echo '$'. $row['price'] . '<br>';
-        $totalPrice += $row['price'];
-    }
-    if($totalPrice != 0) {
-        echo '<p><strong>The Total is $' . $totalPrice . "</strong></p>";
-    } else {
-        echo '<p><strong>Your cart is empty</strong></p>';
-    }
-
-    if(isset($_POST['pay'])) {
-
-        if(!empty($_POST['payment']) && !empty($_POST['address']) ) {
-            
-            $queryPay = "UPDATE orders SET paid = 1 WHERE user_id = '$userId' AND paid = 0";
-            $resultPay = mysqli_query($conn, $queryPay);
-
-            if($resultPay) {
-                echo "<p><strong>Payed sucessfully.</strong></p>";
-
-            } else {
-                echo "<p style='color: red'><strong>Connection to the server failed.</strong></p>";
-            }
-
+        $query = "SELECT * FROM order_content oc
+        INNER JOIN items i on oc.item_id = i.item_id
+        INNER JOIN orders o on oc.order_id = o.order_id
+        WHERE o.user_id = '$user_id' AND o.paid = 0 ORDER BY oc.order_id";
+        
+        $result = mysqli_query($conn, $query);
+        $totalPrice = 0;
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo $row['title'] . ": ";
+            echo '$'. $row['price'] . '<br>';
+            $totalPrice += $row['price'];
+        }
+        if($totalPrice != 0) {
+            echo '<p><strong>The Total is $' . $totalPrice . "</strong></p>";
         } else {
-            echo "<p style='color: red'> Please fill the required fields</p>";
+            echo '<p><strong>Your cart is empty</strong></p>';
         }
 
-    }
+        if(isset($_POST['pay'])) {
 
-    if($totalPrice != 0) {
+            if(!empty($_POST['payment']) && !empty($_POST['address']) ) {
+                
+                $queryPay = "UPDATE orders SET paid = 1 WHERE user_id = '$userId' AND paid = 0";
+                $resultPay = mysqli_query($conn, $queryPay);
 
+                if($resultPay) {
+                    echo "<p><strong>Payed sucessfully.</strong></p>";
 
+                } else {
+                    echo "<p style='color: red'><strong>Connection to the server failed.</strong></p>";
+                }
+
+            } else {
+                echo "<p style='color: red'> Please fill the required fields</p>";
+            }
+        }
+
+        if($totalPrice != 0) {
     ?>
 
 
