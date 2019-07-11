@@ -178,3 +178,10 @@
 #cssmenu.small-screen #menu-button.menu-opened:before {
   background: #dff2fa;
 }
+#cartNum {
+
+  color: white;
+  background-color: red;
+  border-radius: 50%;
+  padding: 4px;
+}

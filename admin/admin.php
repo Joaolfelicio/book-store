@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="../script.js"></script>
     <title>Document</title>
 
     <style>
@@ -47,6 +50,7 @@
 
 <body>
     <?php
+    include "navbarAdmin.php";
 if(isset($_SESSION['userId']) && $_SESSION['isAdmin'] == 1) {
     ?>
     <h1 style='text-align: center'>ADMIN</h1>
@@ -97,12 +101,12 @@ if(!isset($_GET['filter'])) {
         echo "<article>";
         echo "<div class='poster'>";
         ?>
-        <a href='product.php?itemId=<?php echo $row['item_id'] ?>' > <img class='poster' src="<?php echo $row['poster'] ?>" alt="poster for the book"> </a>
+        <a href='../product.php?itemId=<?php echo $row['item_id'] ?>' > <img class='poster' src="<?php echo $row['poster'] ?>" alt="poster for the book"> </a>
         <?php
         echo "</div>";
         echo "<div class='content'>";
         ?>
-        <a href='product.php?itemId=<?php echo $row['item_id']?>' > <h3><?php echo $row['title'] ?><h3> </a>
+        <a href='../product.php?itemId=<?php echo $row['item_id']?>' > <h3><?php echo $row['title'] ?><h3> </a>
         <?php
         echo "<p> " . $row['name'] . "<p>";
         echo "<p> Release date: " . $row['release_date'];

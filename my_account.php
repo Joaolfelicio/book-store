@@ -11,17 +11,29 @@
   <title>Joao</title>
 
   <style>
-  article {
-      margin-top: 30px;
+
+
+  body h1 {
+      margin-bottom: 50px;
+  }
+
+  body h2 {
+      margin: 40px 15px;
+  }
+
+  .dateOrder {
+      margin-left: 15px;
   }
   </style>
 
 </head>
 <body>
 
-<h1>User info</h1>
+    
+    <?php
 
-<?php
+    require "navbar.php";
+        echo "<h1>User info</h1>";
 
 if (!empty($_SESSION['userId'])) {
    $user_session = $_SESSION['userId'];
@@ -39,9 +51,9 @@ if (!empty($_SESSION['userId'])) {
     
    while ($db_record = mysqli_fetch_assoc($result)) {
        echo '<article>';
-       echo 'First Name : ' . $db_record['first_name'] . '<br>';
-       echo 'Last Name : ' . $db_record['last_name'] . '<br>';
-       echo 'Email : ' . $db_record['email'] . '<br>';
+       echo '<p><strong>First Name :</strong> ' . $db_record['first_name'] . '</p>';
+       echo '<p><strong>Last Name :</strong> ' . $db_record['last_name'] . '</p>';
+       echo '<p><strong>Email :</strong> ' . $db_record['email'] . '</p>';
        echo '</article>';
    }
 
@@ -55,17 +67,17 @@ if (!empty($_SESSION['userId'])) {
    
    while($row = mysqli_fetch_assoc($result)) {
 
-    echo "<article>";
-    if($num !== $row['order_id']) {
-        $total =  $row['price'];
-        echo "<hr>";        
-        echo "<h1>Order id: " . $row['order_id'] . "</h1>";
-        $num = $row['order_id'];
-        echo "<p> Date of order: " . $row['date'];
-    } else {
-        $total += $row['price'];
-         
-    }
+       if($num !== $row['order_id']) {
+           $total =  $row['price'];
+           echo "<hr>";        
+           echo "<h2>Order id: " . $row['order_id'] . "</h2>";
+           $num = $row['order_id'];
+           echo "<p class='dateOrder'> Date of order: " . $row['date'];
+        } else {
+            $total += $row['price'];
+            
+        }
+        echo "<article>";
     echo "<div>"; ?>
     <h4><a href='product.php?itemId=<?php echo $row["item_id"]?>' > <?php echo $row['title'] ?></a></h4>   
     <?php

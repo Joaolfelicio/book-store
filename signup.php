@@ -5,24 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="script.js"></script>
     <title>Document</title>
     <style>
-    body {
+    .cred {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        height: 100vh;
+        padding-top: 100px;
     }
 
     h1 {
         margin-bottom: 100px;
+        text-align: center;
     }
 
     </style>
 </head>
 <body>
+<?php require "navbar.php" ?>
+
     <h1>SIGNUP</h1>
+    <div class='cred'>
 
 <?php
 if(!isset($_SESSION['userId'])) {
@@ -49,8 +56,8 @@ if(!isset($_SESSION['userId'])) {
 <form action="" method='POST'>
 
     <input type="submit" name=logout value='Log out'>
-
 </form>
+</div>
 <?php
 }
 
@@ -86,6 +93,7 @@ if(isset($_POST['create'])) {
 
                 while($row = mysqli_fetch_assoc($result2)) {
                     $_SESSION['userId'] = $row['user_id'];
+                    $_SESSION['isAdmin'] = $row['isAdmin'];
                 }
 
                 echo "<p>Account sucessfully created</p>";

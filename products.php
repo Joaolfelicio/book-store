@@ -46,6 +46,11 @@
             flex-direction: column;
             margin-left: 50px;
         }
+
+        form {
+            padding: 15px;
+            padding-left: 50px;
+        }
     </style>
 </head>
 

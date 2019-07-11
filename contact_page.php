@@ -1,31 +1,36 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="script.js"></script>
     <title>Document</title>
     <style>
     form{
+        padding: 15px;
+    }
+    p {
         padding: 15px;
     }
     </style>
 </head>
 <body>
 <?php
-    // to work with database , we will use a function call :mysqli
+
+require "navbar.php";
     require_once 'database.php';
     $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD,DB_NAME);
-    echo 'connection successfull <br>';
-    //  choose which database that i want to work with
-    
+
     $db_found = mysqli_select_db($conn, DB_NAME);
-    echo DB_NAME . ' found!' . '<br>';
     $query = 'SELECT title, release_date,soldNum FROM items ORDER BY soldNum DESC limit 3  ';
     $result = mysqli_query($conn, $query);
     $contactEmail = '';
     $contactTextArea = '';
-    $msg = ' please check your email, your comment has to be more than 10 letters';
+    $msg = 'Please check your email, your comment has to be more than 10 letters';
     if (isset($_POST['contact_submit'])) {
         
         if (filter_var(filter_var($_POST['contactEmail'], FILTER_SANITIZE_EMAIL), FILTER_VALIDATE_EMAIL) && strlen($_POST['textArea']) > 10){

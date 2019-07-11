@@ -30,7 +30,7 @@
     img {
         width: 150px;
         height: 250px;
-        margin-left: 50px;
+
     }
     
     </style>

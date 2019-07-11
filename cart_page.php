@@ -6,12 +6,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="script.js"></script>
     <title>Document</title>
+
+    <style>
+p{
+    padding: 15px;
+}
+
+article h1{
+    margin-bottom: 55px;
+    padding-left: 2
+}
+
+input {
+    margin: 15px;
+    margin-bottom: 50px;
+}
+
+        </style>
 </head>
 
 <body>
-
 <?php
+    require "navbar.php";
+
     if(isset($_SESSION['userId'])) {
         $userId = $_SESSION['userId'];
         $payed = false;
@@ -35,7 +56,7 @@
         $result = mysqli_query($conn, $query);
         $totalPrice = 0;
         while ($row = mysqli_fetch_assoc($result)) {
-            echo "<p>" . $row['title'] . ": $" . $row['price'] . '<br>';
+            echo "<p>" . $row['title'] . ": $" . $row['price'] . '</p>';
             $totalPrice += $row['price'];
         }
         if($totalPrice != 0) {
