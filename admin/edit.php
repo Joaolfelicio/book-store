@@ -10,7 +10,7 @@ if(isset($_SESSION['userId']) && $_SESSION['isAdmin'] == 1 && isset($_GET['editI
         
     $db_found = mysqli_select_db($connection, DB_NAME);
 
-    $query = "SELECT * FROM items WHERE item_id = $editId";
+    $query = "SELECT * FROM items i INNER JOIN author o ON i.author_id = o.author_id WHERE item_id = $editId";
 
     $result = mysqli_query($connection, $query);
 
@@ -18,6 +18,7 @@ if(isset($_SESSION['userId']) && $_SESSION['isAdmin'] == 1 && isset($_GET['editI
 
     $title = $fetchItem['title'];
     $release_date = $fetchItem['release_date'];
+    $author_name = $fetchItem['name'];
     $author_id = $fetchItem['author_id'];
     $category = $fetchItem['category'];
     $format = $fetchItem['format'];
@@ -31,14 +32,16 @@ if(isset($_SESSION['userId']) && $_SESSION['isAdmin'] == 1 && isset($_GET['editI
     if(isset($_POST['edit'])) {
         $title = $_POST['title'];
         $release_date = $_POST['date'];
-        $author_id = $_POST['author'];
+        $author_name = $_POST['author'];
         $category = $_POST['category'];
         $format = $_POST['format'];
         $price = $_POST['price'];
         $soldNum = $_POST['soldNum'];
         $url = $_POST['url'];
 
-        $queryUpdate = "UPDATE items SET poster = '$url', title = '$title', release_date = '$release_date', author_id = $author_id, category = '$category', format = '$format', price = $price, soldNum = $soldNum WHERE item_id = $editId ;";
+        // ! CHANGE QUERY TO UPDATE AUTHOR
+
+        $queryUpdate = "UPDATE items SET poster = '$url', title = '$title', release_date = '$release_date', author_id = $author_name, category = '$category', format = '$format', price = $price, soldNum = $soldNum WHERE item_id = $editId ;";
 
         $resultEdit = mysqli_query($connection, $queryUpdate);
         header("Location: admin.php");
@@ -72,8 +75,8 @@ if(isset($_SESSION['userId']) && $_SESSION['isAdmin'] == 1 && isset($_GET['editI
     <br>
     <br>
 
-    <label for="author">Author Id: </label>
-    <input type="text" name='author' value ='<?php echo $author_id ?>' placeholder="Author id">
+    <label for="author">Author: </label>
+    <input type="text" name='author' value ='<?php echo $author_name ?>' placeholder="Author id">
     <br>
     <br>
 
