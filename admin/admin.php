@@ -71,8 +71,10 @@ if(isset($_SESSION['userId']) && $_SESSION['isAdmin'] == 1) {
 
     </form>
 
-    <br>
-    <a href='add.php'>Add a new Item</a>
+    
+    <p><a href='add.php'>Add a new Item</a></p>
+    
+    <p><a href='addAuthor.php'>Add a new Author</a></p>
 
 </body>
 </html>

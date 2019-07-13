@@ -91,12 +91,19 @@ if(isset($_GET['itemId'])) {
             echo "</div>";
             echo "<div class='author-text'>";
             echo "<h2> " . $row['name'] . "</h2>";
-            echo "<p> Birth date: " . $row['year_birth'];
-            if($row['gender'] == 'm') {
-                echo "<p> Male </p>";
-            } else {
-                echo "<p> Female </p>";
-            }
+
+            // ! FIX THIS 
+
+            $time = strtotime($row['year_birth']);
+            echo $time;
+            echo "<br>";
+            echo time();
+            $diff = date_diff( time(), $time);
+            echo "<p> Birth date: " . $row['year_birth'] . "(" . $diff . " years old)";
+
+
+
+            echo "<p>" . $row['gender'] . "</p>";
             echo "<p><strong>Biography:</strong></p>";
             echo "<p> " . $row['biography'] . "<p>";
             echo "</div>";

@@ -57,10 +57,34 @@
         }
 </style>
 <div id='cssmenu'>
-   <ul>
+<ul>
       <li class='active'><a href='../index.php'>Home</a></li>
-      <li><a href='../products.php'>Products</a></li>
-      <li><a href='../cart_page.php'>My Cart</a></li>
+      <li><a href='../products.php'>Products</a></li> <?php
+      if (isset($_SESSION['userId'])) {
+        $user_id = $_SESSION['userId'];
+          ?>
+      <li ><a href='../cart_page.php'>My Cart <?php
+      
+      require_once '../database.php';
+      $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD,DB_NAME);
+  
+      
+      $db_found = mysqli_select_db($connection, DB_NAME);
+
+      $query = "SELECT COUNT(oc.order_id) as cartNum FROM order_content oc
+      INNER JOIN items i on oc.item_id = i.item_id
+      INNER JOIN orders o on oc.order_id = o.order_id
+      WHERE o.user_id = '$user_id' AND o.paid = 0 ORDER BY oc.order_id";
+
+        $result = mysqli_query($connection, $query);
+
+        $row = mysqli_fetch_array($result);
+        
+        echo $row['cartNum'];
+        
+    }
+      ?>
+      </a></li>
       <li><a href='../contact_page.php'>Contact</a></li>
       <?php
       if (isset($_SESSION['userId'])) {
@@ -79,7 +103,6 @@
 
       <?php
       }
-
       if (isset($_SESSION['userId'])) {
          if($_SESSION['isAdmin'] == 1) {
          ?>
