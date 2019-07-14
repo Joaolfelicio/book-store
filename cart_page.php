@@ -13,7 +13,7 @@
 
     <style>
 p{
-    padding: 15px;
+    padding-left: 15px;
 }
 
 article h1{
@@ -26,6 +26,19 @@ input {
     margin-bottom: 50px;
 }
 
+.item {
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deleteCart {
+    background-color: red;
+    color: white;
+    border-radius: 3px;
+    margin: 16px;
+}
         </style>
 </head>
 
@@ -34,8 +47,7 @@ input {
     require "navbar.php";
 
     if(isset($_SESSION['userId'])) {
-        $userId = $_SESSION['userId'];
-        $payed = false;
+        $userId = $_SESSION['userId'];  
         echo "<h1>Cart details</h1>";
 
         require_once 'database.php';
@@ -56,7 +68,15 @@ input {
         $result = mysqli_query($conn, $query);
         $totalPrice = 0;
         while ($row = mysqli_fetch_assoc($result)) {
+            echo "<div class='item'>";
             echo "<p>" . $row['title'] . ": $" . $row['price'] . '</p>';
+            echo "<form method='POST' action='deleteCart.php'>";
+            ?>
+            <input type='hidden' name='itemDeleteCart' value='<?php echo $row['item_id'] ?>'>
+            <?php
+            echo "<input class='deleteCart' name='deleteCart' value='X' type='submit'>";
+            echo "</form>";
+            echo "</div>";
             $totalPrice += $row['price'];
         }
         if($totalPrice != 0) {

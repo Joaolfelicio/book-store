@@ -94,16 +94,16 @@ if(isset($_GET['itemId'])) {
 
             // ! FIX THIS 
 
-            $time = strtotime($row['year_birth']);
-            echo $time;
+            $yearBirth = new DateTime($row['year_birth']);
+            $now = new DateTime();
+            $diff = $now->diff($yearBirth);
             echo "<br>";
-            echo time();
-            $diff = date_diff( time(), $time);
-            echo "<p> Birth date: " . $row['year_birth'] . "(" . $diff . " years old)";
+
+            echo "<p> Birth date: " . $row['year_birth'] . " (" . $diff->y . " years old)";
 
 
 
-            echo "<p>" . $row['gender'] . "</p>";
+            echo "<p>" . ucfirst($row['gender']) . "</p>";
             echo "<p><strong>Biography:</strong></p>";
             echo "<p> " . $row['biography'] . "<p>";
             echo "</div>";
