@@ -76,22 +76,28 @@ if(isset($_POST['create'])) {
     $first_name = htmlspecialchars($_POST['first_name']);
     $last_name = htmlspecialchars($_POST['last_name']);
 
-    if(filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($password) > 3 && strlen($first_name) > 3 && strlen($last_name) > 3) {
+    $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD);
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    
+    $db_found = mysqli_select_db($connection, DB_NAME);
 
-        $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD);
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        
-        $db_found = mysqli_select_db($connection, DB_NAME);
+    $query2 = "SELECT * FROM users WHERE email = '$email'";
+    $result2 = mysqli_query($connection, $query2);
+
+    $row_cnt = mysqli_num_rows($result2);
+
+    if(filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($password) > 3 && strlen($first_name) > 3 && strlen($last_name) > 3 && $row_cnt == 0) {
+
         
         $query = "INSERT INTO users (first_name, last_name, email, password) VALUES('$first_name', '$last_name', '$email', '$password')";
         $result = mysqli_query($connection, $query);
    
             if($result) {
 
-                $query2 = "SELECT * FROM users WHERE email = '$email'";
-                $result2 = mysqli_query($connection, $query2);
+                $query3 = "SELECT * FROM users WHERE email = '$email'";
+                $result3 = mysqli_query($connection, $query3);
 
-                while($row = mysqli_fetch_assoc($result2)) {
+                while($row = mysqli_fetch_assoc($result3)) {
                     $_SESSION['userId'] = $row['user_id'];
                     $_SESSION['isAdmin'] = $row['isAdmin'];
                 }
@@ -101,7 +107,7 @@ if(isset($_POST['create'])) {
                 header('Location: index.php');
             }
         } else {
-            echo "<p style='color: red'>Invalid fields</p>";
+            echo "<p style='color: red'>Invalid fields or email already registered.</p>";
         }
     }
 

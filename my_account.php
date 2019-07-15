@@ -37,12 +37,11 @@
 
 if (!empty($_SESSION['userId'])) {
    $user_session = $_SESSION['userId'];
-       require_once 'database.php';
-       $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD,DB_NAME);
+    require_once 'database.php';
+    $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD,DB_NAME);
 
+    $db_found = mysqli_select_db($conn, DB_NAME);
 
-       $db_found = mysqli_select_db($conn, DB_NAME);
-   # code...
 
    $query = "SELECT * FROM users
    where user_id = $user_session ";
@@ -51,16 +50,16 @@ if (!empty($_SESSION['userId'])) {
     
    while ($db_record = mysqli_fetch_assoc($result)) {
        echo '<article>';
-       echo '<p><strong>First Name :</strong> ' . $db_record['first_name'] . '</p>';
-       echo '<p><strong>Last Name :</strong> ' . $db_record['last_name'] . '</p>';
-       echo '<p><strong>Email :</strong> ' . $db_record['email'] . '</p>';
+       echo '<p><strong>First Name:</strong> ' . ucfirst($db_record['first_name']) . '</p>';
+       echo '<p><strong>Last Name:</strong> ' . ucfirst($db_record['last_name']) . '</p>';
+       echo '<p><strong>Email:</strong> ' . $db_record['email'] . '</p>';
        echo '</article>';
    }
 
    $query = "SELECT * FROM order_content oc
    INNER JOIN items i on oc.item_id = i.item_id
    INNER JOIN orders o on oc.order_id = o.order_id
-   WHERE o.user_id = '$user_session' AND o.paid = 1 ORDER BY oc.order_id";
+   WHERE o.user_id = '$user_session' AND o.paid = 1 ORDER BY oc.order_id DESC";
    
    $result = mysqli_query($conn, $query);
    $num = 0;
@@ -71,8 +70,11 @@ if (!empty($_SESSION['userId'])) {
            $total =  $row['price'];
            echo "<hr>";        
            echo "<h2>Order id: " . $row['order_id'] . "</h2>";
+           echo "<p class='dateOrder'><strong> Address:</strong> " . $row['address'];
+           echo "<p class='dateOrder'><strong> Payment method:</strong> " . $row['payment_method'];
+           echo "<p class='dateOrder'><strong> Date of order:</strong> " . $row['date'];
+
            $num = $row['order_id'];
-           echo "<p class='dateOrder'> Date of order: " . $row['date'];
         } else {
             $total += $row['price'];
             

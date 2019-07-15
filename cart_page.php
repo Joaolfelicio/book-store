@@ -87,10 +87,15 @@ input {
 
         if(isset($_POST['pay'])) {
 
-            if(!empty($_POST['payment']) && !empty($_POST['address']) ) {
+            $payment_method = $_POST['payment'];
+            $address = addslashes($_POST['address']);
+
+            if(!empty($payment_method) && !empty($address)) {
                 
-                $queryPay = "UPDATE orders SET paid = 1 WHERE user_id = '$userId' AND paid = 0";
+                $queryPay = "UPDATE orders SET paid = 1, date = curdate(), address = '$address', payment_method = '$payment_method' WHERE user_id = '$userId' AND paid = 0";
                 $resultPay = mysqli_query($conn, $queryPay);
+
+                var_dump($queryPay);
 
                 if($resultPay) {
                     echo "<p><strong>Payed sucessfully.</strong></p>";
@@ -113,9 +118,9 @@ input {
     <input type="text" name='address' placeholder="Enter the address for the delivery">
     <select name="payment" id="">
         <option value="">-----</option>
-        <option value="mastercard">MasterCard</option>
-        <option value="visa">Visa</option>
-        <option value="paypal">Paypal</option>
+        <option value="Mastercard">MasterCard</option>
+        <option value="Visa">Visa</option>
+        <option value="Paypal">Paypal</option>
     </select>
     <input type="submit" value="Pay now!" name='pay'>
 </form>

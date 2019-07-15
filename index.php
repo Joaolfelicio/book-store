@@ -59,8 +59,9 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed non aperiam numquam
         echo '<article>';
         echo "<div>";
         ?>
-
-        <img src="<?php echo $db_record['poster'] ?>" alt="">
+        <a href='product.php?itemId=<?php echo $db_record['item_id'] ?>'>
+            <img src="<?php echo $db_record['poster'] ?>" alt="">
+        </a>
         <?php
         echo "</div>";
         echo "<div class='content'>";
