@@ -69,15 +69,16 @@ input {
         $totalPrice = 0;
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<div class='item'>";
-            echo "<p>" . $row['title'] . ": $" . $row['price'] . '</p>';
+            echo "<p>" .  $row['quantity'] . "x - " . $row['title'] . ": $" . $row['price'] .  '</p>';
             echo "<form method='POST' action='deleteCart.php'>";
             ?>
             <input type='hidden' name='itemDeleteCart' value='<?php echo $row['item_id'] ?>'>
+            <input type='hidden' name='orderId' value='<?php echo $row['order_id'] ?>'>
             <?php
             echo "<input class='deleteCart' name='deleteCart' value='X' type='submit'>";
             echo "</form>";
             echo "</div>";
-            $totalPrice += $row['price'];
+            $totalPrice += $row['price'] * $row['quantity'];
         }
         if($totalPrice != 0) {
             echo '<p><strong>The Total is $' . $totalPrice . "</strong></p>";

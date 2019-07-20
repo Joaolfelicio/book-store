@@ -72,15 +72,13 @@
       
       $db_found = mysqli_select_db($connection, DB_NAME);
 
-      $query = "SELECT COUNT(oc.order_id) as cartNum FROM order_content oc
+      $query = "SELECT SUM(oc.quantity) as cartNum FROM order_content oc
       INNER JOIN items i on oc.item_id = i.item_id
       INNER JOIN orders o on oc.order_id = o.order_id
       WHERE o.user_id = '$user_id' AND o.paid = 0 ORDER BY oc.order_id";
 
         $result = mysqli_query($connection, $query);
-
         $row = mysqli_fetch_array($result);
-        
         echo $row['cartNum'];
         
     }

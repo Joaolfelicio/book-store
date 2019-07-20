@@ -32,8 +32,26 @@ if(isset($_POST['submitBuy'])) {
 
     $orderId = $fetch3['order_id'];
 
-    $queryOrder = "INSERT INTO order_content(item_id, order_id) VALUES('$itemId', '$orderId')";
-    $resultOrder = mysqli_query($connection, $queryOrder);
+    $queryQt = "SELECT * FROM order_content oc INNER JOIN items i on oc.item_id = i.item_id
+    INNER JOIN orders o on oc.order_id = o.order_id WHERE i.item_id = '$itemId' AND o.order_id = '$orderId' AND o.paid = 0";
+
+    $resultQt = mysqli_query($connection, $queryQt);
+    $fetchQt = mysqli_fetch_assoc($resultQt);
+
+    if(!$fetchQt) {
+        $queryOrder = "INSERT INTO order_content(item_id, order_id) VALUES('$itemId', '$orderId')";
+        $resultOrder = mysqli_query($connection, $queryOrder);
+        echo "First time cart";
+    } else {
+        $quantity = $fetchQt['quantity'] + 1;
+        $queryUpdateQuantity = "UPDATE order_content SET quantity = $quantity WHERE item_id = '$itemId' AND order_id = '$orderId'";
+        $resultUpdateQuantity = mysqli_query($connection, $queryUpdateQuantity);
+        echo "<pre>";
+        var_dump($resultUpdateQuantity);
+        echo "</pre>";
+        echo "Second time cart";
+    }
+
 
     header("Location: products.php");
 }

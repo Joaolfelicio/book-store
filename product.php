@@ -76,7 +76,13 @@ if(isset($_GET['itemId'])) {
             echo "<p>" . $row['soldNum'] . " copies sold!";
             if(!empty($_SESSION['userId'])) {
                 ?>
-                <a href='product.php?buyId=<?php echo $row['item_id']?>'><h5>Add to cart</h5></a>
+                <form action="buy.php" method='POST'>
+        
+                    <input type="hidden" value='<?php echo $row['item_id'] ?>' name="itemId">
+                    <!-- <input class='image' type="image" name='submitBuy' src="http://cdn.onlinewebfonts.com/svg/img_569392.png" alt=""> -->
+                    <input type="submit" value="CART" name='submitBuy'>
+                </form>
+        
                 <?php
             }
             echo "</div>";
