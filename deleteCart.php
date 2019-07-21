@@ -19,20 +19,23 @@ if(isset($_POST['deleteCart'])) {
 
     $queryQt = "SELECT * FROM order_content oc INNER JOIN items i on oc.item_id = i.item_id
     INNER JOIN orders o on oc.order_id = o.order_id WHERE i.item_id = '$itemId' AND o.order_id = '$orderId' AND o.paid = 0";
-    var_dump($queryQt);
+
     $resultQt = mysqli_query($connection, $queryQt);
     $fetchQt = mysqli_fetch_assoc($resultQt);
-
     $quantity = $fetchQt['quantity'] - 1;
 
-    $query = "UPDATE oc FROM order_content oc
-    INNER JOIN items i on oc.item_id = i.item_id
-    INNER JOIN orders o on oc.order_id = o.order_id SET quantity = $quantity
+
+    $query = "UPDATE order_content oc
+    INNER JOIN items i ON oc.item_id = i.item_id
+    INNER JOIN orders o ON oc.order_id = o.order_id SET oc.quantity = $quantity 
     WHERE o.user_id = $userId AND o.paid = 0 AND oc.item_id = $itemId";
+
 
     $result = mysqli_query($connection, $query);
 
+    echo "<pre>";
     var_dump($query);
+    echo "</pre>";
     var_dump($result);
-    // header("Location: cart_page.php");
+    header("Location: cart_page.php");
 }

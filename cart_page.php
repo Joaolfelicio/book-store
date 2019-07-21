@@ -63,7 +63,7 @@ input {
         $query = "SELECT * FROM order_content oc
         INNER JOIN items i on oc.item_id = i.item_id
         INNER JOIN orders o on oc.order_id = o.order_id
-        WHERE o.user_id = '$user_id' AND o.paid = 0 ORDER BY oc.order_id";
+        WHERE o.user_id = '$user_id' AND o.paid = 0 AND oc.quantity > 0 ORDER BY oc.order_id";
         
         $result = mysqli_query($conn, $query);
         $totalPrice = 0;
@@ -95,8 +95,6 @@ input {
                 
                 $queryPay = "UPDATE orders SET paid = 1, date = curdate(), address = '$address', payment_method = '$payment_method' WHERE user_id = '$userId' AND paid = 0";
                 $resultPay = mysqli_query($conn, $queryPay);
-
-                var_dump($queryPay);
 
                 if($resultPay) {
                     echo "<p><strong>Payed sucessfully.</strong></p>";

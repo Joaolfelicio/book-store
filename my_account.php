@@ -63,11 +63,14 @@ if (!empty($_SESSION['userId'])) {
    
    $result = mysqli_query($conn, $query);
    $num = 0;
+   $total = 0;
    
    while($row = mysqli_fetch_assoc($result)) {
-
        if($num !== $row['order_id']) {
-           $total =  $row['price'];
+            if($total > 0) {
+                echo "<h3> TOTAL: $" .  $total . "</h3>";
+            }
+           $total =  $row['price'] * $row['quantity'];
            echo "<hr>";        
            echo "<h2>Order id: " . $row['order_id'] . "</h2>";
            echo "<p class='dateOrder'><strong> Address:</strong> " . $row['address'];
@@ -76,16 +79,21 @@ if (!empty($_SESSION['userId'])) {
 
            $num = $row['order_id'];
         } else {
-            $total += $row['price'];
+            $total += $row['price']  * $row['quantity'];
             
         }
-        echo "<article>";
-    echo "<div>"; ?>
-    <h4><a href='product.php?itemId=<?php echo $row["item_id"]?>' > <?php echo $row['title'] ?></a></h4>   
-    <?php
-    echo "<p> Price: $" . $row['price'];
-    echo "</div>";
-    echo "</article>";
+        if($row['quantity'] > 0) {
+            
+            echo "<article>";
+            echo "<div>"; ?>
+            <h4> <?php echo $row['quantity'] . "x" ?> <a href='product.php?itemId=<?php echo $row["item_id"]?>' > <?php echo $row['title'] ?></a></h4>   
+            <?php
+            echo "<p> Price: $" . $row['price'] * $row['quantity'];
+            echo "</div>";
+            echo "</article>";
+        }
+
+
 }
 
 
