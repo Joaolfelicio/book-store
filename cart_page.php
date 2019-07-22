@@ -68,6 +68,8 @@ input {
         $result = mysqli_query($conn, $query);
         $totalPrice = 0;
         while ($row = mysqli_fetch_assoc($result)) {
+            
+
             echo "<div class='item'>";
             echo "<p>" .  $row['quantity'] . "x - " . $row['title'] . ": $" . $row['price'] .  '</p>';
             echo "<form method='POST' action='deleteCart.php'>";

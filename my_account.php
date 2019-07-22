@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles.css">
   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
   <script src="script.js"></script>
-  <title>Joao</title>
+  <title>Account</title>
 
   <style>
 
