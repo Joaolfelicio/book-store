@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+$category = '' ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,6 +76,9 @@ if(isset($_SESSION['userId']) && $_SESSION['isAdmin'] == 1) {
     <p><a href='add.php'>Add a new Item</a></p>
     
     <p><a href='addAuthor.php'>Add a new Author</a></p>
+<?php
+
+?>
 
 </body>
 </html>
@@ -99,6 +103,7 @@ if(isset($_SESSION['userId']) && $_SESSION['isAdmin'] == 1) {
 
 // ! RETRIEVE ALL THE BOOKS
 if(!isset($_GET['filter'])) {
+
     while($row = mysqli_fetch_assoc($result)) {
         echo "<article>";
         echo "<div class='poster'>";
@@ -132,6 +137,10 @@ if(!isset($_GET['filter'])) {
 if(isset($_GET['filter'])) {
 
     $category = $_GET['filterDrop'];
+
+    if(!empty($_GET['filterDrop'])) {
+        echo "<h3>Filtering for $category: </h3>";
+    }
 
     $queryCategory = "SELECT * FROM items i INNER JOIN author a ON i.author_id = a.author_id WHERE category LIKE '%$category%' AND i.isAvailable = 1";
     $resultCategory = mysqli_query($connection, $queryCategory);
