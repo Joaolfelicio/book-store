@@ -102,8 +102,6 @@ if(isset($_GET['itemId'])) {
             echo "<div class='author-text'>";
             echo "<h2> " . $row['name'] . "</h2>";
 
-            // ! FIX THIS 
-
             $yearBirth = new DateTime($row['year_birth']);
             $now = new DateTime();
             $diff = $now->diff($yearBirth);

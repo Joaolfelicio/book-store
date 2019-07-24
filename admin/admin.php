@@ -37,6 +37,10 @@ $category = '' ?>
             width: 200px;
         }
 
+        article h3 {
+            padding-left: 0px;
+        }
+
         .content {
             display: flex;
             justify-content: center;
@@ -113,9 +117,9 @@ if(!isset($_GET['filter'])) {
         echo "</div>";
         echo "<div class='content'>";
         ?>
-        <a href='../product.php?itemId=<?php echo $row['item_id']?>' > <h3><?php echo $row['title'] ?><h3> </a>
+        <a href='../product.php?itemId=<?php echo $row['item_id']?>' > <h3><?php echo $row['title'] ?></h3> </a>
         <?php
-        echo "<p> " . $row['name'] . "<p>";
+        echo "<p> " . $row['name'] . "</p>";
         echo "<p> Release date: " . $row['release_date'];
         echo "<p> Price: $" . $row['price'];
         echo "</div>";
@@ -154,7 +158,7 @@ if(isset($_GET['filter'])) {
         echo "</div>";
         echo "<div class='content'>";
         ?>
-        <a href='product.php?itemId=<?php echo $row['item_id']?>' > <h3><?php echo $row['title'] ?><h3> </a>
+        <a href='product.php?itemId=<?php echo $row['item_id']?>' > <h3><?php echo $row['title'] ?></h3> </a>
         <?php
         echo "<p> " . $row['name'] . "<p>";
         echo "<p> Release date: " . $row['release_date'];

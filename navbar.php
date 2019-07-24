@@ -60,7 +60,8 @@
 <div id='cssmenu'>
    <ul>
       <li class='active'><a href='index.php'>Home</a></li>
-      <li><a href='products.php'>Products</a></li> <?php
+      <li><a href='products.php'>Books</a></li>
+      <li><a href='authors.php'>Authors</a></li> <?php
       if (isset($_SESSION['userId'])) {
         $user_id = $_SESSION['userId'];
           ?>

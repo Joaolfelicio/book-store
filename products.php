@@ -19,7 +19,10 @@
             margin-top: 35px;
             display: flex;
             justify-content: space-evenly;
+        }
 
+        article h3 {
+            padding-left: 0px;
         }
 
         .order {
@@ -97,6 +100,12 @@ if(isset($_SESSION['userId'])) {
     // ! FILTER THE BOOKS
 
 $category = isset($_GET['filterDrop']) ? $_GET['filterDrop'] : "";
+
+if(!empty($_GET['filterDrop'])) {
+    echo "<h3>Filtering for $category: </h3>";
+}
+
+
 
 $queryCategory = "SELECT * FROM items i INNER JOIN author a ON i.author_id = a.author_id WHERE category LIKE '%$category%' AND i.isAvailable = 1";
 $resultCategory = mysqli_query($connection, $queryCategory);
