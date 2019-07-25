@@ -115,10 +115,6 @@ while($row = mysqli_fetch_assoc($result)) {
     }
 
     echo "</div>";
-    echo "<div class='order'>";
-
-    
-    echo "</div>";
     echo "</article>";
 }
 ?>
