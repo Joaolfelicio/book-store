@@ -8,7 +8,7 @@
         }
 
         h1 {
-            margin-bottom: 100px;
+            margin-bottom: 50px;
         }
    article,
         h1,

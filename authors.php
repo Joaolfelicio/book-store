@@ -20,6 +20,7 @@
             margin-left: 50px;
             display: flex;
             justify-content: space-evenly;
+            width: 70%;
         }
 
 
@@ -27,18 +28,6 @@
             padding-left: 0px;
         }
 
-
-        .order {
-            width: 300px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .image {
-            width: 50px;
-            height: 50px;
-        }
 
         .poster {
             height: 300px;
@@ -90,7 +79,7 @@ while($row = mysqli_fetch_assoc($result)) {
     echo "<article>";
     echo "<div class='poster'>";
     ?>
-    <a href='author.php?authorId=<?php echo $row['author_id'] ?>' > <img class='poster' src="<?php echo $row['picture'] ?>" alt="poster for the author."> </a>
+    <a href='author.php?authorId=<?php echo $row['author_id'] ?>' > <img class='poster' src="<?php echo $row['picture'] ?>" alt="<?php echo $row['name'] ?>"> </a>
     <?php
     echo "</div>";
     echo "<div class='content'>";

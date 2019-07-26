@@ -29,8 +29,12 @@
     .content-text, .author-text {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-evenly;
         height: 300px;
+    }
+
+    .author-text h3 {
+        padding-left: 0px;
     }
 
     #cart {
@@ -65,7 +69,7 @@ if(isset($_GET['itemId'])) {
     if(!isset($_GET['filter'])) {
         while($row = mysqli_fetch_assoc($result)) {
             echo "<article>";
-            echo "<h2 style='margin-bottom: 25px'>Item: </h2>";
+            echo "<h2 style='margin-bottom: 25px'>Book: </h2>";
             echo "<div class='content'>"; 
             echo "<div>";
             ?>
@@ -74,7 +78,7 @@ if(isset($_GET['itemId'])) {
             <?php
             echo "</div>";
             echo "<div class='content-text'>";
-            echo "<h3>" . $row['title'] . "</h3>";
+            echo "<h2>" . $row['title'] . "</h2>";
             echo "<p> Release date: " . $row['release_date'];
             echo "<p> Price: " . $row['price'] . '$';
             echo "<p>" . $row['soldNum'] . " copies sold!";
@@ -100,12 +104,11 @@ if(isset($_GET['itemId'])) {
             <?php
             echo "</div>";
             echo "<div class='author-text'>";
-            echo "<h2> " . $row['name'] . "</h2>";
+            echo "<h3> " . $row['name'] . "</h3>";
 
             $yearBirth = new DateTime($row['year_birth']);
             $now = new DateTime();
             $diff = $now->diff($yearBirth);
-            echo "<br>";
 
             echo "<p> Birth date: " . $row['year_birth'] . " (" . $diff->y . " years old)";
 

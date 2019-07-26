@@ -16,14 +16,29 @@
         margin-left: 50px;
     }
 
+    .content h3 {
+        padding: 0px;
+    }
+
     img {
         width: 200px;
         height: 300px;
         margin-left: 50px;
     }
 
-    .content, .author {
+    article {
         display: flex;
+        /* padding: 0px !important; */
+        margin-left: 50px;
+        justify-content: space-between;
+        margin-top: 30px;
+        width: 70%;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
     }
 
     .content-text, .author-text {
@@ -36,7 +51,43 @@
     #cart {
         margin-left: 50px;
     }
-    
+
+    .image {
+            width: 50px;
+            height: 50px;
+        }
+
+    .poster {
+        height: 300px;
+        width: 200px;
+    }
+
+    .author {
+        margin-left: 100px;
+    }
+
+    .content, .content-author {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .content-author {
+        padding-left: 30px;
+    }
+
+    form {
+        padding: 15px;
+        padding-left: 50px;
+    }
+
+    .order {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
 
 
     </style>
@@ -62,22 +113,22 @@ if(isset($_GET['authorId'])) {
     
 
     $row = mysqli_fetch_assoc($result);
-            
-    echo "<article>";
+    echo "<h2 style='margin-bottom: 25px'>Author: </h2>";
+
+    echo "<article class='author'>";
     echo "<div class='poster'>";
     ?>
     <img class='poster' src="<?php echo $row['picture'] ?>" alt="poster for the author.">
     <?php
     echo "</div>";
-    echo "<div class='content'>";
+    echo "<div class='content-author'>";
     ?>
-    <h3><?php echo $row['name'] ?></h3>
+    <h2><?php echo $row['name'] ?></h2>
     <?php
 
     $yearBirth = new DateTime($row['year_birth']);
     $now = new DateTime();
     $diff = $now->diff($yearBirth);
-    echo "<br>";
 
     echo "<p> Birth date: " . $row['year_birth'] . " (" . $diff->y . " years old)";
 
@@ -86,39 +137,54 @@ if(isset($_GET['authorId'])) {
     echo "<p>" . $row['biography'] . "</p>";
 
     echo "</article>";
+
+
+    $queryBooks = "SELECT * FROM items i INNER JOIN author a ON i.author_id = a.author_id WHERE a.author_id = $authorId";
+    $resultBooks = mysqli_query($connection, $queryBooks);
+    echo "<h2 style='margin-top: 75px'>Books: </h2>";
+    while($row = mysqli_fetch_assoc($resultBooks)) {
+        echo "<article>";
+        echo "<div class='poster'>";
+        ?>
+        <a href='product.php?itemId=<?php echo $row['item_id'] ?>' > <img class='poster' src="<?php echo $row['poster'] ?>" alt="<?php $row['title'] ?>"> </a>
+        <?php
+        echo "</div>";
+        echo "<div class='content'>";
+        ?>
+        <a href='product.php?itemId=<?php echo $row['item_id']?>' > <h3><?php echo $row['title'] ?><h3> </a>
+        <?php
+        echo "<p> " . $row['name'] . "<p>";
+        echo "<p> Release date: " . $row['release_date'];
+        echo "<p> Price: $" . $row['price'];
+        echo "</div>";
+        echo "<div class='order'>";
+        if(!empty($_SESSION['userId'])) {
+    
+            ?>
+            <form action="buy.php" method='POST'>
+    
+                <input type="hidden" value='<?php echo $row['item_id'] ?>' name="itemId">
+                <input type="submit" value="CART" name='submitBuy'>
+
+            </form>
+    
+            <?php
+        }
+        echo "</div>";
+        echo "</article>";
+    }
 }
 
 if(isset($_SESSION['userId'])) {
     $userId = $_SESSION['userId'];
 }
 
+
+
 if(isset($_GET['buyId'])) {
     $buyId = $_GET['buyId'];
  
-    //? INSERT ORDER INTO ORDERS
-    $query2 = "SELECT * FROM orders WHERE user_id = '$userId' AND paid = 0";
-    $result2 = mysqli_query($connection, $query2);
-    $fetch2 = mysqli_fetch_array($result2);
 
-    var_dump($fetch2);
-    
-    if(empty($fetch2)) {
-        $queryPreOrder = "INSERT INTO orders(user_id) VALUES('$userId')";
-        $resultPreOrder = mysqli_query($connection, $queryPreOrder);
-    }
-    
-    //? ADD CONTENT OF THE CART
-    $query3 = "SELECT * FROM orders WHERE user_id = '$userId' AND paid = 0";
-    $result3 = mysqli_query($connection, $query3);
-
-    $fetch3 = mysqli_fetch_assoc($result3);
-
-    var_dump($fetch3);
-    $orderId = $fetch3['order_id'];
-
-    $queryOrder = "INSERT INTO order_content(item_id, order_id) VALUES('$buyId', '$orderId')";
-    $resultOrder = mysqli_query($connection, $queryOrder);
-    header("Location: products.php");
 
 
 }

@@ -18,6 +18,7 @@
             display: flex;
             margin-top: 35px;
             display: flex;
+            width: 70%;
             justify-content: space-evenly;
         }
 
@@ -132,7 +133,6 @@ while($row = mysqli_fetch_assoc($resultCategory)) {
         <form action="buy.php" method='POST'>
 
             <input type="hidden" value='<?php echo $row['item_id'] ?>' name="itemId">
-            <!-- <input class='image' type="image" name='submitBuy' src="http://cdn.onlinewebfonts.com/svg/img_569392.png" alt=""> -->
             <input type="submit" value="CART" name='submitBuy'>
         </form>
 
