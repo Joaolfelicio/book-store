@@ -9,3 +9,4 @@
 - Instead of dropdown, user search box.
 - Orders pagination.
 - Books/authors pagination.
+- Full page CSS
