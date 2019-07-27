@@ -12,7 +12,7 @@
     <style>
     
 
-    p, h2, h3, a {
+    p, h2, h3 {
         margin-left: 50px;
     }
 
@@ -33,8 +33,8 @@
         height: 300px;
     }
 
-    .author-text h3 {
-        padding-left: 0px;
+    h2 {
+        margin-bottom: 25px;
     }
 
     #cart {
@@ -100,12 +100,12 @@ if(isset($_GET['itemId'])) {
             echo "<div>";
             ?>
             
-            <img src="<?php echo $row['picture'] ?>" alt="">
+            <a href='author.php?authorId=<?php echo $row['author_id'] ?>'><img src="<?php echo $row['picture'] ?>" alt=""></a>
             <?php
             echo "</div>";
-            echo "<div class='author-text'>";
-            echo "<h3> " . $row['name'] . "</h3>";
-
+            echo "<div class='author-text'>"; ?>
+            <h3><a href='author.php?authorId=<?php echo $row['author_id'] ?>'><?php echo $row['name']?></a></h3>
+            <?php
             $yearBirth = new DateTime($row['year_birth']);
             $now = new DateTime();
             $diff = $now->diff($yearBirth);

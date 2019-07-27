@@ -14,11 +14,12 @@
 
     <style>
         article {
-            padding: 15px;
+            padding-top: 30px;
             display: flex;
             margin-top: 35px;
             display: flex;
             width: 70%;
+            margin-left: 50px;
             justify-content: space-evenly;
         }
 
@@ -52,8 +53,7 @@
         }
 
         form {
-            padding: 15px;
-            padding-left: 50px;
+            margin-left: 50px;
         }
     </style>
 </head>

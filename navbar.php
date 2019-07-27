@@ -7,19 +7,9 @@
             height: 100vh;
         }
 
-        h1 {
-            margin-bottom: 50px;
-        }
-   article,
-        h1,
-        h3,
-        .presentation {
-            padding: 15px;
-        }
 
         body,
         html {
-            height: 100%;
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
         }

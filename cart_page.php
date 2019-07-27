@@ -11,35 +11,37 @@
     <script src="script.js"></script>
     <title>Document</title>
 
-    <style>
-p{
-    padding-left: 15px;
-}
+<style>
 
-article h1{
-    margin-bottom: 55px;
-    padding-left: 2
-}
+    p{
+        padding-left: 15px;
+    }
 
-input {
-    margin: 15px;
-    margin-bottom: 50px;
-}
+    h1{
+        margin-bottom: 55px;
+        margin-left: 50px;
+    }
 
-.item {
-    width: 400px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    input {
+        margin: 15px;
+        margin-bottom: 50px;
+    }
 
-.deleteCart {
-    background-color: red;
-    color: white;
-    border-radius: 3px;
-    margin: 16px;
-}
-        </style>
+    .item {
+        width: 400px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .deleteCart {
+        background-color: red;
+        color: white;
+        border-radius: 3px;
+        margin: 16px;
+    }
+        
+</style>
 </head>
 
 <body>

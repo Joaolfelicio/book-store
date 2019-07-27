@@ -16,22 +16,22 @@
         margin-left: 50px;
     }
 
-    .content h3 {
-        padding: 0px;
+    .a-img {
+        margin-left: 0px;
     }
 
     img {
         width: 200px;
         height: 300px;
-        margin-left: 50px;
     }
 
     article {
         display: flex;
-        /* padding: 0px !important; */
-        margin-left: 50px;
         justify-content: space-between;
-        margin-top: 30px;
+        margin-left: 50px;
+        padding: 0px;
+        padding-top: 30px;
+        margin-top: 35px;
         width: 70%;
     }
 
@@ -48,22 +48,9 @@
         height: 300px;
     }
 
-    #cart {
-        margin-left: 50px;
-    }
-
-    .image {
-            width: 50px;
-            height: 50px;
-        }
-
     .poster {
-        height: 300px;
         width: 200px;
-    }
-
-    .author {
-        margin-left: 100px;
+        height: 300px;
     }
 
     .content, .content-author {
@@ -73,9 +60,6 @@
         flex-direction: column;
     }
 
-    .content-author {
-        padding-left: 30px;
-    }
 
     form {
         padding: 15px;
@@ -87,8 +71,6 @@
         flex-direction: column;
         justify-content: center;
     }
-
-
 
     </style>
 </head>
@@ -118,7 +100,7 @@ if(isset($_GET['authorId'])) {
     echo "<article class='author'>";
     echo "<div class='poster'>";
     ?>
-    <img class='poster' src="<?php echo $row['picture'] ?>" alt="poster for the author.">
+    <img class='poster' src="<?php echo $row['picture'] ?>" alt="<?php echo $row['name'] ?>">
     <?php
     echo "</div>";
     echo "<div class='content-author'>";
@@ -146,7 +128,7 @@ if(isset($_GET['authorId'])) {
         echo "<article>";
         echo "<div class='poster'>";
         ?>
-        <a href='product.php?itemId=<?php echo $row['item_id'] ?>' > <img class='poster' src="<?php echo $row['poster'] ?>" alt="<?php $row['title'] ?>"> </a>
+        <a class='a-img' href='product.php?itemId=<?php echo $row['item_id'] ?>' > <img class='poster' src="<?php echo $row['poster'] ?>" alt="<?php $row['title'] ?>"> </a>
         <?php
         echo "</div>";
         echo "<div class='content'>";

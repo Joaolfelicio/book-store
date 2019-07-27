@@ -13,16 +13,26 @@
   <style>
 
 
-  body h1 {
+  body h1, h3 {
       margin-bottom: 50px;
   }
 
+  h3 {
+      margin-left: 35px;
+  }
+
+  h1, article {
+      margin-left: 35px;
+      margin-top: 35px;
+      margin-bottom: 30px;
+  }
+
   body h2 {
-      margin: 40px 15px;
+      margin: 40px 35px;
   }
 
   .dateOrder {
-      margin-left: 15px;
+      margin-left: 35px;
   }
   </style>
 

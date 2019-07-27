@@ -14,8 +14,8 @@
 
     <style>
         article {
-            padding: 15px;
             display: flex;
+            padding-top: 30px;
             margin-top: 35px;
             margin-left: 50px;
             display: flex;
