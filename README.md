@@ -3,7 +3,7 @@
 ## TODO:
 
 - Organize by folders.
-[X] Redirect to author in book description.
+ [X] Redirect to author in book description.
 - Admin part button for books/authors.
 - Styling for the add books/authors.
 - Instead of dropdown, user search box.
