@@ -2,7 +2,7 @@
 <?php
  
 if(isset($_POST['submitBuy'])) {
-    require "database.php";
+    require "../db/database.php";
 
     $itemId = $_POST['itemId'];
 
@@ -51,7 +51,5 @@ if(isset($_POST['submitBuy'])) {
         echo "</pre>";
         echo "Second time cart";
     }
-
-
     header("Location: products.php");
 }

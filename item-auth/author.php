@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../style/styles.css">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="script.js"></script>
+    <script src="../script/script.js"></script>
     <title>Document</title>
     <style>
     
@@ -75,12 +75,12 @@
     </style>
 </head>
 <body>
-    <?php require 'navbar.php'; ?>
+    <?php require 'navbar-item-auth.php'; ?>
 </body>
 </html>
 <?php
 
-include_once ('database.php');
+include_once ('../db/database.php');
 
     $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD);
     
@@ -161,12 +161,6 @@ if(isset($_SESSION['userId'])) {
     $userId = $_SESSION['userId'];
 }
 
-
-
 if(isset($_GET['buyId'])) {
     $buyId = $_GET['buyId'];
- 
-
-
-
 }

@@ -48,15 +48,15 @@
 </style>
 <div id='cssmenu'>
    <ul>
-      <li class='active'><a href='index.php'>Home</a></li>
-      <li><a href='item-auth/products.php'>Books</a></li>
-      <li><a href='item-auth/authors.php'>Authors</a></li> <?php
+      <li class='active'><a href='../index.php'>Home</a></li>
+      <li><a href='../item-auth/products.php'>Books</a></li>
+      <li><a href='../item-auth/authors.php'>Authors</a></li> <?php
       if (isset($_SESSION['userId'])) {
         $user_id = $_SESSION['userId'];
           ?>
-      <li ><a href='account/cart_page.php'>My Cart <?php
+      <li ><a href='cart_page.php'>My Cart <?php
       
-      require_once 'db/database.php';
+      require_once '../db/database.php';
       $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD,DB_NAME);
   
       $db_found = mysqli_select_db($connection, DB_NAME);
@@ -69,19 +69,19 @@
     $result = mysqli_query($connection, $query);
     $row = mysqli_fetch_array($result);
 
-    if( $row['cartNum'] > 0 ) {
+    if ($row['cartNum'] > 0) {
         echo $row['cartNum'];
     }
         
     }
       ?>
       </a></li>
-      <li><a href='contact_page.php'>Contact</a></li>
+      <li><a href='../contact_page.php'>Contact</a></li>
       <?php
       if (isset($_SESSION['userId'])) {
          ?>
-         <li><a href='account/my_account.php'>My Account</a></li>
-         <li><a href='account/logout.php'>Log Out</a></li>
+         <li><a href='my_account.php'>My Account</a></li>
+         <li><a href='logout.php'>Log Out</a></li>
 
       <?php
       }
@@ -89,15 +89,15 @@
       <?php
       if (!isset($_SESSION['userId'])) {
          ?>
-         <li><a href='account/login.php'>Log In</a></li>
-         <li><a href='account/signup.php'>Sign Up</a></li>
+         <li><a href='login.php'>Log In</a></li>
+         <li><a href='signup.php'>Sign Up</a></li>
 
       <?php
       }
       if (isset($_SESSION['userId'])) {
          if($_SESSION['isAdmin'] == 1) {
          ?>
-         <li><a href='admin/admin.php'>Admin</a></li>
+         <li><a href='../admin/admin.php'>Admin</a></li>
 
 <?php
          }

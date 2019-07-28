@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="script.js"></script>
+    <script src="../script.js"></script>
     <title>Document</title>
 
 <style>
@@ -46,13 +46,13 @@
 
 <body>
 <?php
-    require "navbar.php";
+    require "navbar-account.php";
 
     if(isset($_SESSION['userId'])) {
         $userId = $_SESSION['userId'];  
         echo "<h1>Cart details</h1>";
 
-        require_once 'database.php';
+        require_once '../db/database.php';
         $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
         $user_id = $_SESSION['userId'];
 

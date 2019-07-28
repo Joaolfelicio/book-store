@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../style/styles.css">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="script.js"></script>
+    <script src="../script/script.js"></script>
     <title>Document</title>
     <style>
     .cred {
@@ -26,7 +26,7 @@
     </style>
 </head>
 <body>
-<?php require "navbar.php" ?>
+<?php require "navbar-account.php" ?>
 
     <h1>SIGNUP</h1>
     <div class='cred'>
@@ -67,7 +67,7 @@ if(!isset($_SESSION['userId'])) {
 </html>
 <?php
 
-include_once ('database.php');
+include_once ('../db/database.php');
 
 if(isset($_POST['create'])) {
 
@@ -104,7 +104,7 @@ if(isset($_POST['create'])) {
 
                 echo "<p>Account sucessfully created</p>";
                 
-                header('Location: index.php');
+                header('Location: ../index.php');
             }
         } else {
             echo "<p style='color: red'>Invalid fields or email already registered.</p>";

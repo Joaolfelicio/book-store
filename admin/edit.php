@@ -4,7 +4,7 @@
 if(isset($_SESSION['userId']) && $_SESSION['isAdmin'] == 1 && isset($_GET['editId'])) {
     $editId = $_GET['editId'];
     
-    include_once ('../database.php');
+    include_once ('../db/database.php');
 
     $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD);
         
@@ -26,9 +26,6 @@ if(isset($_SESSION['userId']) && $_SESSION['isAdmin'] == 1 && isset($_GET['editI
     $soldNum = $fetchItem['soldNum'];
     $url = $fetchItem['poster'];
 
-
-
-
     if(isset($_POST['edit'])) {
         $title = $_POST['title'];
         $release_date = $_POST['date'];
@@ -47,7 +44,6 @@ if(isset($_SESSION['userId']) && $_SESSION['isAdmin'] == 1 && isset($_GET['editI
         header("Location: admin.php");
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -93,19 +89,10 @@ if(isset($_SESSION['userId']) && $_SESSION['isAdmin'] == 1 && isset($_GET['editI
 
             <option <?php if($row['author_id'] == $rowChecked['author_id'])  echo "selected"; ?> value='<?php echo $row['author_id'] ?>'><?php echo $row['name'] ?></option>
 
-        
         <?php
     }
-
 ?>
-
-
     </select> <br> <br>
-
-    <!-- <label for="author">Author: </label>
-    <input type="text" name='author' value ='<?php // echo $author_name ?>' placeholder="Author id">
-    <br>
-    <br> -->
 
     <label for="category">Category: </label>
     <input type="text" name='category' value ='<?php echo $category ?>' placeholder="Category">

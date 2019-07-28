@@ -5,53 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../style/styles.css">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="script.js"></script>
+    <script src="../script/script.js"></script>
     <title>Document</title>
     <style>
     
+        p, h2, h3 {
+            margin-left: 50px;
+        }
 
-    p, h2, h3 {
-        margin-left: 50px;
-    }
+        img {
+            width: 200px;
+            height: 300px;
+            margin-left: 50px;
+        }
 
-    img {
-        width: 200px;
-        height: 300px;
-        margin-left: 50px;
-    }
+        .content, .author {
+            display: flex;
+        }
 
-    .content, .author {
-        display: flex;
-    }
+        .content-text, .author-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            height: 300px;
+        }
 
-    .content-text, .author-text {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        height: 300px;
-    }
+        h2 {
+            margin-bottom: 25px;
+        }
 
-    h2 {
-        margin-bottom: 25px;
-    }
-
-    #cart {
-        margin-left: 50px;
-    }
-    
-
-
+        #cart {
+            margin-left: 50px;
+        }
+        
     </style>
 </head>
 <body>
-    <?php require 'navbar.php'; ?>
+    <?php require 'navbar-item-auth.php'; ?>
 </body>
 </html>
 <?php
 
-include_once ('database.php');
+include_once ('../db/database.php');
 
     $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD);
     
@@ -112,8 +109,6 @@ if(isset($_GET['itemId'])) {
 
             echo "<p> Birth date: " . $row['year_birth'] . " (" . $diff->y . " years old)";
 
-
-
             echo "<p>" . ucfirst($row['gender']) . "</p>";
             echo "<p><strong>Biography:</strong></p>";
             echo "<p> " . $row['biography'] . "<p>";
@@ -136,8 +131,6 @@ if(isset($_GET['buyId'])) {
     $query2 = "SELECT * FROM orders WHERE user_id = '$userId' AND paid = 0";
     $result2 = mysqli_query($connection, $query2);
     $fetch2 = mysqli_fetch_array($result2);
-
-    var_dump($fetch2);
     
     if(empty($fetch2)) {
         $queryPreOrder = "INSERT INTO orders(user_id) VALUES('$userId')";
@@ -156,6 +149,4 @@ if(isset($_GET['buyId'])) {
     $queryOrder = "INSERT INTO order_content(item_id, order_id) VALUES('$buyId', '$orderId')";
     $resultOrder = mysqli_query($connection, $queryOrder);
     header("Location: products.php");
-
-
 }

@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../style/styles.css">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="script.js"></script>
+    <script src="../script/script.js"></script>
 
     <title>Authors</title>
 
@@ -51,17 +51,16 @@
 
 
 <body>
-<?php require('navbar.php') ?>
+<?php require('navbar-item-auth.php') ?>
     
     <h1 style='text-align: center'>AUTHORS: </h1>
-    
 
 </body>
 </html>
 <?php
 
 
-include_once ('database.php');
+include_once ('../db/database.php');
 
 $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD);
 
@@ -84,7 +83,7 @@ while($row = mysqli_fetch_assoc($result)) {
     echo "</div>";
     echo "<div class='content'>";
     ?>
-    <a href='product.php?authorId=<?php echo $row['author_id']?>' > <h3><?php echo $row['name'] ?></h3> </a>
+    <a href='author.php?authorId=<?php echo $row['author_id']?>' > <h3><?php echo $row['name'] ?></h3> </a>
     <?php
 
     $yearBirth = new DateTime($row['year_birth']);

@@ -2,7 +2,7 @@
 <?php
  
 if(isset($_POST['deleteCart'])) {
-    require "database.php";
+    require "../db/database.php";
 
     $itemId = $_POST['itemDeleteCart'];
     $orderId = $_POST['orderId'];
@@ -24,18 +24,12 @@ if(isset($_POST['deleteCart'])) {
     $fetchQt = mysqli_fetch_assoc($resultQt);
     $quantity = $fetchQt['quantity'] - 1;
 
-
     $query = "UPDATE order_content oc
     INNER JOIN items i ON oc.item_id = i.item_id
     INNER JOIN orders o ON oc.order_id = o.order_id SET oc.quantity = $quantity 
     WHERE o.user_id = $userId AND o.paid = 0 AND oc.item_id = $itemId";
 
-
     $result = mysqli_query($connection, $query);
 
-    echo "<pre>";
-    var_dump($query);
-    echo "</pre>";
-    var_dump($result);
     header("Location: cart_page.php");
 }

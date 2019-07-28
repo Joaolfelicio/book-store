@@ -5,28 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../style/styles.css">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="script.js"></script>
+    <script src="../script/script.js"></script>
     <title>Login</title>
     <style>
-    .cred {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        padding-top: 100px;
-    }
 
-    h1 {
-        margin-bottom: 100px;
-        text-align: center;
-    }
+        .cred {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding-top: 100px;
+        }
+
+        h1 {
+            margin-bottom: 100px;
+            text-align: center;
+        }
 
     </style>
 </head>
 <body>
-<?php require "navbar.php" ?>
+<?php require "navbar-account.php" ?>
     <h1>LOGIN</h1>
     <div class='cred'>
 <?php
@@ -62,7 +63,7 @@ if(!isset($_SESSION['userId'])) {
 </html>
 <?php
 
-include_once ('database.php');
+include_once ('../db/database.php');
 
 if(isset($_POST['login'])) {
 
@@ -86,14 +87,13 @@ if(isset($_POST['login'])) {
                 
 
                 echo "<p>Sucessfully connected</p>";
-                header('Location: index.php');
+                header('Location: ../index.php');
             } else {
                 echo "<p style='color: red'>Invalid password or email</p>";
             }
         }
     }
 }
-
 
 if(isset($_POST['logout'])) { 
     session_destroy();

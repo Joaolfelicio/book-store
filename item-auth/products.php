@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../style/styles.css">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="script.js"></script>
+    <script src="../script/script.js"></script>
 
     <title>Document</title>
 
     <style>
         article {
             padding-top: 30px;
-            display: flex;
             margin-top: 35px;
+            display: flex;
             display: flex;
             width: 70%;
             margin-left: 50px;
@@ -60,7 +60,7 @@
 
 
 <body>
-<?php require('navbar.php') ?>
+<?php require('navbar-item-auth.php') ?>
     
     <h1 style='text-align: center'>BOOKS: </h1>
     
@@ -85,7 +85,7 @@
 <?php
 
 
-include_once ('database.php');
+include_once ('../db/database.php');
 
 $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD);
 
@@ -105,8 +105,6 @@ $category = isset($_GET['filterDrop']) ? $_GET['filterDrop'] : "";
 if(!empty($_GET['filterDrop'])) {
     echo "<h3>Filtering for $category: </h3>";
 }
-
-
 
 $queryCategory = "SELECT * FROM items i INNER JOIN author a ON i.author_id = a.author_id WHERE category LIKE '%$category%' AND i.isAvailable = 1";
 $resultCategory = mysqli_query($connection, $queryCategory);
