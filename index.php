@@ -10,7 +10,7 @@
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="script/script.js"></script>
 
-    <title>Document</title>
+    <title>HOME</title>
     
     <style>
 
